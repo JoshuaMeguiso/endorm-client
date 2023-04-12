@@ -6,17 +6,25 @@ import { useNavigate } from 'react-router-dom'
 const Setting = () => {
     const [password, setPassword] = useState('')
     const [password1, setPassword1] = useState('')
+    const [password2, setPassword2] = useState('')
     const { change_Pass, isLoading, error } =  useChangePassword()
     const { user } = useAuthContext()
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await change_Pass(user.user_Name, password, password1)
+        await change_Pass(user.user_Name, password, password1, password2)
     }
 
     return (
         <div className="tenant-details">
+            {isLoading ? (
+                <div className="loader-container">
+                <div className="spinner"></div>
+                </div>
+            ) : (
+                ""
+            )}
             <div className="form">
                 <form onSubmit={handleSubmit}>
                     <h1>
@@ -35,7 +43,7 @@ const Setting = () => {
                     />
                     <label>
                         <h2>
-                            Change Password: 
+                            Old Password: 
                         </h2>
                     </label>
                     <input 
@@ -45,7 +53,7 @@ const Setting = () => {
                     />
                     <label>
                         <h2>
-                            Confirm Password: 
+                            Change Password: 
                         </h2>
                     </label>
                     <input 
@@ -53,12 +61,22 @@ const Setting = () => {
                         onChange={(e) => setPassword1(e.target.value)} 
                         value={password1} 
                     />
-                    <button className="btnPassword" disabled={isLoading}>
+                    <label>
+                        <h2>
+                            Confirm Password: 
+                        </h2>
+                    </label>
+                    <input 
+                        type="password" 
+                        onChange={(e) => setPassword2(e.target.value)} 
+                        value={password2} 
+                    />
+                    <button className="smallBtn" disabled={isLoading}>
                         <strong>
                             Confirm
                         </strong>
                     </button>
-                    <button className="btnPassword" type="button" onClick={() => navigate(-1)}>
+                    <button className="smallBtn" type="button" onClick={() => navigate(-1)}>
                         <strong>
                             Cancel
                         </strong>

@@ -9,8 +9,10 @@ import Transaction from './pages/Transaction'
 import Setting from './pages/Setting'
 import Navbar from './components/Navbar'
 import Login from './pages/Login'
+import LoginCard from './pages/LoginCard'
 import Pay from './pages/Pay'
 import Print from './pages/Print'
+import RegisterCard from './pages/RegisterCard'
 
 function App() {
 const { user } = useAuthContext()
@@ -42,10 +44,17 @@ const { user } = useAuthContext()
               path="/profile/setting" element={user ? <Setting /> : <Navigate to='/' />} 
             />
             <Route 
+              path="/profile/card" element={user ? <RegisterCard /> : <Navigate to='/' />} 
+            />
+            <Route 
               path="/statement/pay" element={user ? <Pay /> : <Navigate to='/' />} 
             />
             <Route 
               path="/statement/print" element={user ? <Print /> : <Navigate to='/' />} 
+            />
+            <Route 
+              path="/card"
+              element={!user ? <LoginCard /> : <Navigate to='/home' />}
             />
           </Routes>
         </div>

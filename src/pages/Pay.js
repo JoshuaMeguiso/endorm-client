@@ -6,15 +6,19 @@ import { useAuthContext } from '../hooks/useAuthContext'
 
 const Pay = () => {
     const { transactions, dispatch } = useTransactionsContext()
-    const { user } = useAuthContext()
-    const [cash, setCash] = useState('')
+    const [showForm, setShowForm] = useState(false);
+    const [ compareCash, setCompareCash ] = useState('')
+    const [credits, setCredits] = useState(0);
+
     const { Payment, isLoading, error } =  usePay()
+    const { user } = useAuthContext()
     const navigate = useNavigate();
-    const cashRemaining = parseFloat(transactions[0].total_Amount) - cash
+
+    const cashRemaining = parseFloat(transactions[0].total_Amount) - credits
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await Payment(transactions[0]._id, cash)
+        await Payment(transactions[0]._id, credits, compareCash)
     }
 
     useEffect(() => {
@@ -30,8 +34,29 @@ const Pay = () => {
         // eslint-disable-next-line
     }, [])
 
+    useEffect(() => {
+        const fetchCredits = async () => {
+          const response = await fetch('http://127.0.0.1:8000/credits');
+          const data = await response.json();
+          setCredits(prevCredits => prevCredits + parseInt(data?.value || 0));
+        };
+    
+        const intervalId = setInterval(fetchCredits, 2000); // Fetch credits every 2 seconds
+    
+        return () => clearInterval(intervalId); // Clean up the interval on component unmount
+    }, []);
+    
+    
+
     return (
         <div className="tenant-details">
+            {isLoading ? (
+                <div className="loader-container">
+                <div className="spinner"></div>
+                </div>
+            ) : (
+                ""
+            )}
             <div className="form">
                 <form onSubmit={handleSubmit}>
                     <h1>
@@ -52,25 +77,58 @@ const Pay = () => {
                     <label>
                         <h2>
                             <strong>
-                                Total Cash Inserted: 
+                                Insert Money to Pay
                             </strong>
                         </h2>
                     </label>
                     <input 
+                        disabled = {showForm}
                         type="float" 
-                        onChange={(e) => setCash(e.target.value)} 
-                        value={cash} 
+                        onChange={(e) => setCompareCash(e.target.value)} 
+                        value={compareCash} 
                     />
-                    <button className="btnPassword" disabled={isLoading} onClick={() => navigate(-1)}>
-                        <strong>
-                            Confirm
-                        </strong>
-                    </button>
-                    <button className="btnPassword" type="button" onClick={() => navigate(-1)}>
-                        <strong>
-                            Cancel
-                        </strong>
-                    </button>
+                    {!showForm && (
+                        <>
+                            <button className="smallBtn" disabled={isLoading} onClick={() => setShowForm(true)}>
+                                <strong>
+                                    Confirm
+                                </strong>
+                            </button>
+                            <button className="smallBtn" type="button" onClick={() => navigate(-1)}>
+                                <strong>    
+                                    Cancel
+                                </strong>
+                            </button>
+                        </>
+                    )}
+                    {showForm && (
+                        <>
+                            <label htmlFor="credits">
+                                <h2>
+                                    <strong>
+                                        Total Cash Inserted: 
+                                    </strong>
+                                </h2>
+                            </label>
+                            <input 
+                                type="number" 
+                                id="credits" 
+                                name="credits" 
+                                value={credits} 
+                                readOnly 
+                            />
+                            <button className="smallBtn" disabled={isLoading}>
+                                <strong>
+                                    Confirm
+                                </strong>
+                            </button>
+                            <button className="smallBtn" type="button" onClick={() => navigate(-1)}>
+                                <strong>    
+                                    Cancel
+                                </strong>
+                            </button>
+                        </>
+                    )}
                     {error && <div className="error">{error}</div>}
                 </form>
             </div> 

@@ -21,9 +21,13 @@ export const TransactionsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(transactionsReducer, { 
     transactions: null
   })
+
+  const clearTransaction = () =>{
+    dispatch({type: 'SET_TRANSACTIONS', payload: ""});
+  }
   
   return (
-    <TransactionsContext.Provider value={{ ...state, dispatch }}>
+    <TransactionsContext.Provider value={{ ...state, dispatch, clearTransaction }}>
       { children }
     </TransactionsContext.Provider>
   )

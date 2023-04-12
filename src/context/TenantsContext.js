@@ -21,9 +21,13 @@ export const TenantsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(tenantsReducer, { 
     tenants: null
   })
+
+  const clearTenant = () =>{
+    dispatch({type: 'SET_TENANTS', payload: ""});
+  }
   
   return (
-    <TenantsContext.Provider value={{ ...state, dispatch }}>
+    <TenantsContext.Provider value={{ ...state, dispatch, clearTenant }}>
       { children }
     </TenantsContext.Provider>
   )

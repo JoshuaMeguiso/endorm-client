@@ -2,18 +2,22 @@ import { useEffect, useState } from 'react'
 
 import TransactionDetails from '../components/transactionDetails'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { useHistoryContext } from  '../hooks/useHistoryContext'
 
 const Transaction = () => {
-    const [ payments, setPayment ] = useState()
+    const { history, dispatch } = useHistoryContext()
+    const [loading, setLoading] = useState(false);
     const { user } = useAuthContext()
 
     useEffect(() => {
         const fetchTransactions = async () => {
+            setLoading(true);
             const response = await fetch(`/payment/${user.user_Name}`)
             const json = await response.json()
 
             if(response.ok){
-                setPayment(json)
+                dispatch({type: 'SET_HISTORY', payload: json})
+                setLoading(false);
             }
         }
         fetchTransactions();
@@ -21,7 +25,14 @@ const Transaction = () => {
     }, [])
     return (
         <>
-            {payments && payments.map((payment)=> (
+            {!history && loading ? (
+                <div className="loader-container">
+                <div className="spinner"></div>
+                </div>
+            ) : (
+                ""
+            )}
+            {history && history.map((payment)=> (
                 <div key={payment._id}>
                     <TransactionDetails 
                         key={payment._id} 
@@ -29,9 +40,9 @@ const Transaction = () => {
                     />
                 </div>
             ))}
-            {payments && (
+            {history && (
                 <div>
-                    {!payments[0] && (
+                    {!history[0] && (
                         <div className='tenant-details'>
                             <p><strong>No History of Transaction</strong></p>
                         </div>

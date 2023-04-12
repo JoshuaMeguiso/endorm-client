@@ -1,4 +1,3 @@
-
 const Home = () => {
     return (
         <div className="containerLogo">
@@ -11,5 +10,4 @@ const Home = () => {
         </div>
     )
 } 
-
 export default Home

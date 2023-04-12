@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useLogin } from "../hooks/useLogin"
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [userName, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const { login, error, isLoading } =  useLogin()
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -42,6 +44,19 @@ const Login = () => {
                     Log in
                 </strong>
             </button>
+            <button className="btnPassword" type="button" onClick={() => navigate("/card")}>
+                <strong>
+                    Use ID Card
+                </strong>
+            </button>
+
+            {isLoading ? (
+                <div className="loginLoader-container">
+                <div className="spinner"></div>
+                </div>
+            ) : (
+                ""
+            )}
             {error && <div className="error">{error}</div>}
         </form>
     )

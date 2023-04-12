@@ -5,6 +5,7 @@ import App from './App';
 import { TenantsContextProvider } from './context/TenantsContext';
 import { AuthContextProvider } from './context/AuthContext';
 import { TransactionsContextProvider } from './context/TransactionsContext';
+import { HistoryContextProvider } from './context/HistoryContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,9 @@ root.render(
     <AuthContextProvider>
       <TenantsContextProvider>
         <TransactionsContextProvider>
-          <App />
+          <HistoryContextProvider>
+            <App />
+          </HistoryContextProvider>
         </TransactionsContextProvider>
       </TenantsContextProvider>
     </AuthContextProvider>  

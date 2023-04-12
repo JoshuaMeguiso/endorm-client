@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import StatementDetails from '../components/statementDetails'
@@ -7,16 +7,19 @@ import { useTransactionsContext } from  '../hooks/useTransactionsContext'
 
 const Statement = () => {
     const { transactions, dispatch } = useTransactionsContext()
+    const [loading, setLoading] = useState(false);
     const { user } = useAuthContext()
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchStatements = async () => {
+            setLoading(true);
             const response = await fetch(`/transaction/${user.user_Name}/false`)
             const json = await response.json()
 
             if(response.ok){
                 dispatch({type: 'SET_TRANSACTIONS', payload: json})
+                setLoading(false);
             }
         }
         fetchStatements();
@@ -25,6 +28,13 @@ const Statement = () => {
     
     return (
         <>
+            {!transactions && loading ? (
+                <div className="loader-container">
+                <div className="spinner"></div>
+                </div>
+            ) : (
+                ""
+            )}
             {transactions && transactions.map((statement) => (
                 <div key={statement._id}>
                     <StatementDetails 

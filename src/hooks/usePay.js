@@ -4,7 +4,7 @@ export const usePay = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(null)
 
-    const Payment = async (id, amount_Paid, compareAmount) => {
+    const Payment = async (id, amount_Paid, compareAmount, tenant_Name, room_ID, bill_Month, start_Month, end_Month, room_Rate, water_Charge, individual_Consume, amount_Due, date_Paid) => {
         setIsLoading(true)
         setError(null)
         
@@ -26,6 +26,23 @@ export const usePay = () => {
                 }
                 else{
                     setIsLoading(false)
+
+                    const postString = async () => {
+                        try {
+                            const response = await fetch('http://127.0.0.1:8000/send_string', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ 
+                                    command_string: `2|${tenant_Name}|${room_ID}|${bill_Month}|${start_Month}|${end_Month}|${room_Rate}|${water_Charge}|${individual_Consume}|${amount_Due}|${date_Paid}` 
+                                }),
+                            });
+                            const data = await response.json();
+                            console.log(data.message);
+                        } catch (error) {
+                        console.error(error);
+                        }
+                    }
+                    postString();
                 }
             }   
             else{

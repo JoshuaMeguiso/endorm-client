@@ -3,6 +3,7 @@ import { useTransactionsContext } from  '../hooks/useTransactionsContext'
 import { useNavigate } from 'react-router-dom'
 import { usePay } from '../hooks/usePay'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { add, format } from 'date-fns'
 
 const Pay = () => {
     const { transactions, dispatch } = useTransactionsContext()
@@ -15,10 +16,22 @@ const Pay = () => {
     const navigate = useNavigate();
 
     const cashRemaining = parseFloat(transactions[0].total_Amount) - credits
+    const id = transactions[0]._id
+    const tenant_Name = transactions[0].tenant_Name
+    const room_ID = transactions[0].room_ID
+    const bill_Month = format(new Date(transactions[0].start_Month), 'MMMM, Y')
+    const start_Month = format(new Date(transactions[0].start_Month), 'MMMM dd, Y')
+    const end_Month = format(add(new Date(transactions[0].start_Month), {months: 1}), 'MMMM dd, Y')
+    const water_Charge = transactions[0].water_Charge
+    const individual_Consume = transactions[0].individual_Consume
+    const room_Rate = transactions[0].room_Rate
+    const amount_Due = transactions[0].total_Amount
+    const date_Paid = format(add(new Date(transactions[0].updatedAt), {months: 1}), 'MMMM dd, Y')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await Payment(transactions[0]._id, credits, compareCash)
+        await Payment(id, credits, compareCash, tenant_Name, room_ID, bill_Month, start_Month, end_Month, room_Rate, water_Charge, individual_Consume, amount_Due, date_Paid)
+        navigate(-1)
     }
 
     useEffect(() => {

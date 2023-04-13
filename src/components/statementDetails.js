@@ -27,7 +27,10 @@ const StatementDetails = ({statement}) => {
                 <strong>
                     Period Covered&emsp;&emsp;&emsp; &nbsp;:&emsp;
                 </strong>
-                {format(new Date(statement.start_Month), 'MMMM dd, Y')} - {format(end_Month, 'MMMM dd, Y')}
+                {format(new Date(statement.start_Month), 'MMMM dd, Y')} - 
+            </p>
+            <p>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &nbsp;{format(end_Month, 'MMMM dd, Y')}
             </p>
             <p>
                 <strong>

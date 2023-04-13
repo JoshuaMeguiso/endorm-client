@@ -8,7 +8,7 @@ const RegisterCard = () => {
             <h2>
                 <p>
                     <strong>
-                        &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;TAP YOUR CARD
+                        &emsp;&emsp;&emsp;&ensp;&nbsp;TAP YOUR CARD
                     </strong>
                 </p>
             </h2>

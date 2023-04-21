@@ -25,7 +25,7 @@ const Print = () => {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ 
-                        command_string: `1|${transactions[0].tenant_Name}|${transactions[0].tenant_ID}|${transactions[0].room_ID}|${format(new Date(transactions[0].start_Month), 'MMMM dd, Y')} - ${format(end_Month, 'MMMM dd, Y')}|${parseFloat(transactions[0].room_Rate).toFixed(2)}|${parseFloat(transactions[0].water_Charge).toFixed(2).toString()}|${transactions[0].previous_Reading}|${transactions[0].present_Reading}|${transactions[0].total_Consume}|${parseFloat(transactions[0].room_Consume).toFixed(2)}|${parseFloat(transactions[0].individual_Consume).toFixed(2)}|${parseFloat(transactions[0].total_Amount).toFixed(2)}\x0D` 
+                        command_string: `1|${transactions[0].tenant_Name}|${transactions[0].room_ID}|${format(new Date(transactions[0].start_Month), 'MMMM dd, Y')} - ${format(end_Month, 'MMMM dd, Y')}|${parseFloat(transactions[0].room_Rate).toFixed(2)}|${parseFloat(transactions[0].water_Charge).toFixed(2).toString()}|${transactions[0].previous_Reading}|${transactions[0].present_Reading}|${transactions[0].total_Consume}|${parseFloat(transactions[0].room_Consume).toFixed(2)}|${parseFloat(transactions[0].individual_Consume).toFixed(2)}|${parseFloat(transactions[0].total_Amount).toFixed(2)}\x0D` 
                     }), 
                 });
                 const data = await response.json();

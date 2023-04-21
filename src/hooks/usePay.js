@@ -33,7 +33,7 @@ export const usePay = () => {
                               method: 'POST',
                               headers: { 'Content-Type': 'application/json' },
                               body: JSON.stringify({ 
-                                    command_string: `2|${tenant_Name}|${room_ID}|${bill_Month}|${start_Month}|${end_Month}|${room_Rate}|${water_Charge}|${individual_Consume}|${amount_Due}|${date_Paid}\x0D` 
+                                    command_string: `2|${tenant_Name}|${room_ID}|${bill_Month}|${start_Month}|${end_Month}|${parseFloat(room_Rate).toFixed(2)}|${parseFloat(water_Charge).toFixed(2)}|${parseFloat(individual_Consume).toFixed(2)}|${parseFloat(amount_Due).toFixed(2)}|${parseFloat(amount_Paid).toFixed(2)}|${date_Paid}\x0D` 
                                 }),
                             });
                             const data = await response.json();

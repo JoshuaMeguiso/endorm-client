@@ -1,24 +1,20 @@
 import { useNavigate } from 'react-router-dom'
 import { useRegisterCard } from '../hooks/useRegisterCard';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useTenantsContext } from "../hooks/useTenantsContext"
 
 const RegisterCard = () => {
     const navigate = useNavigate();
-    const [ uid, setUid ] = useState("");
     const { registerCard, isLoading, error } = useRegisterCard()
+    const { tenants } = useTenantsContext()
 
     useEffect(() => {
         const fetchUid = async () => {
           const response = await fetch('http://127.0.0.1:8000/uid');
           const data = await response.json();
-          setUid(data);
-          if(uid){
-            await registerCard(uid);
-          }
+          registerCard(tenants.tenant_ID, data)
         };
-        const intervalId = setInterval(fetchUid, 2000); // Fetch credits every 2 seconds
-    
-        return () => clearInterval(intervalId); // Clean up the interval on component unmount
+        fetchUid();
         // eslint-disable-next-line
     }, []);
 

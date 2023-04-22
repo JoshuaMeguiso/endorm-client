@@ -1,24 +1,18 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useLoginCard } from '../hooks/useLoginCard';
 
 const LoginCard = () => {
     const navigate = useNavigate();
-    const [ uid, setUid ] = useState("");
     const { loginCard, error, isLoading } =  useLoginCard()
 
     useEffect(() => {
         const fetchUid = async () => {
           const response = await fetch('http://127.0.0.1:8000/uid');
           const data = await response.json();
-          setUid(data);
-          if(uid){
-            await loginCard(uid);
-          }
+          loginCard(data);
         };
-        const intervalId = setInterval(fetchUid, 2000); // Fetch credits every 2 seconds
-    
-        return () => clearInterval(intervalId); // Clean up the interval on component unmount
+        fetchUid();
         // eslint-disable-next-line
     }, []);
 

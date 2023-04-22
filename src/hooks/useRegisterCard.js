@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const useRegisterCard = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(null)
+  const navigate = useNavigate();
 
   const registerCard = async (tenant_ID, uid) => {
     setIsLoading(true)
@@ -15,7 +17,8 @@ export const useRegisterCard = () => {
     })
     const json = await response.json()
     if (response.ok) {
-        setIsLoading(false)
+      setIsLoading(false)
+      navigate(-1);
     }
     else{
     setIsLoading(false)

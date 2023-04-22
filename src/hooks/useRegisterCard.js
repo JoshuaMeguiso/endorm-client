@@ -6,14 +6,14 @@ export const useRegisterCard = () => {
   const [isLoading, setIsLoading] = useState(null)
   const navigate = useNavigate();
 
-  const registerCard = async (tenant_ID, uid) => {
+  const registerCard = async (tenant_ID, rfid) => {
     setIsLoading(true)
     setError(null)
 
     const response = await fetch(`/user/${tenant_ID}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ uid })
+      body: JSON.stringify({ rfid })
     })
     const json = await response.json()
     if (response.ok) {

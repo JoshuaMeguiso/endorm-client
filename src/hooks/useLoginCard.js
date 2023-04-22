@@ -6,14 +6,14 @@ export const useLoginCard = () => {
   const [isLoading, setIsLoading] = useState(null)
   const { dispatch } = useAuthContext()
 
-  const loginCard = async (uid) => {
+  const loginCard = async (rfid) => {
     setIsLoading(true)
     setError(null)
 
     const response = await fetch('/user/login/card', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ uid })
+      body: JSON.stringify({ rfid })
     })
     const json = await response.json()
     if(json.user_Type === 'admin'){

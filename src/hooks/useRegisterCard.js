@@ -11,7 +11,7 @@ export const useRegisterCard = () => {
     setError(null)
 
     const response = await fetch(`/user/${tenant_ID}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ rfid })
     })

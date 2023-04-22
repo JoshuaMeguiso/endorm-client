@@ -11,7 +11,7 @@ const RegisterCard = () => {
         const fetchUid = async () => {
           const response = await fetch('http://127.0.0.1:8000/uid');
           const data = await response.json();
-          registerCard(tenants.tenant_ID, data)
+          registerCard(tenants[0].tenant_ID, data)
         };
         fetchUid();
         // eslint-disable-next-line

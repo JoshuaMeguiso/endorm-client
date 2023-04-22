@@ -7,8 +7,6 @@ const RegisterCard = () => {
     const navigate = useNavigate();
     const { registerCard, isLoading, error } = useRegisterCard()
     const { tenants } = useTenantsContext()
-
-    console.log(tenants[0].tenant_ID);
     useEffect(() => {
         const fetchUid = async () => {
           const response = await fetch('http://127.0.0.1:8000/uid');

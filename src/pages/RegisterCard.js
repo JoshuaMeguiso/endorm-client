@@ -36,14 +36,14 @@ const RegisterCard = () => {
                         Cancel
                     </strong>
                 </button>
+                {isLoading ? (
+                    <div className="loginLoader-container">
+                    <div className="spinner"></div>
+                    </div>
+                ) : (
+                    ""
+                )}
             </form>
-            {isLoading ? (
-                <div className="loginLoader-container">
-                <div className="spinner"></div>
-                </div>
-            ) : (
-                ""
-            )}
         </>
     )
 }

@@ -39,6 +39,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)} 
                 value={password} 
             />
+            {error && <div className="error">{error}</div>}
             <button className="btnPassword" disabled={isLoading}>
                 <strong>
                     Log in
@@ -57,7 +58,6 @@ const Login = () => {
             ) : (
                 ""
             )}
-            {error && <div className="error">{error}</div>}
         </form>
     )
 }

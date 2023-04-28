@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const usePay = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(null)
+  const navigate = useNavigate();
+
 
     const Payment = async (id, amount_Paid, compareAmount, tenant_Name, room_ID, bill_Month, start_Month, end_Month, room_Rate, water_Charge, individual_Consume, amount_Due, date_Paid) => {
         setIsLoading(true)
@@ -43,6 +46,7 @@ export const usePay = () => {
                         }
                     }
                     postString();
+                    navigate(-1);
                 }
             }   
             else{

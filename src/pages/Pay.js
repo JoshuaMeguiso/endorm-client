@@ -26,12 +26,11 @@ const Pay = () => {
     const individual_Consume = transactions[0].individual_Consume
     const room_Rate = transactions[0].room_Rate
     const amount_Due = transactions[0].total_Amount
-    const date_Paid = format(add(new Date(transactions[0].updatedAt), {months: 1}), 'MMMM dd, Y')
+    const date_Paid = format(new Date(transactions[0].updatedAt), 'MMMM dd, Y')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         await Payment(id, credits, compareCash, tenant_Name, room_ID, bill_Month, start_Month, end_Month, room_Rate, water_Charge, individual_Consume, amount_Due, date_Paid)
-        navigate(-1)
     }
 
     useEffect(() => {
@@ -98,7 +97,7 @@ const Pay = () => {
                         disabled = {showForm}
                         type="float" 
                         onChange={(e) => setCompareCash(e.target.value)} 
-                        value={compareCash} 
+                        value={compareCash}
                     />
                     {!showForm && (
                         <>
@@ -130,6 +129,7 @@ const Pay = () => {
                                 value={credits} 
                                 readOnly 
                             />
+                            {error && <div className="error">{error}</div>}
                             <button className="smallBtn" disabled={isLoading}>
                                 <strong>
                                     Confirm
@@ -142,7 +142,6 @@ const Pay = () => {
                             </button>
                         </>
                     )}
-                    {error && <div className="error">{error}</div>}
                 </form>
             </div> 
         </div>

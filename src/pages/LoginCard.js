@@ -25,6 +25,7 @@ const LoginCard = () => {
                 <div className="logoHome">
                     <i className="fa-regular fa-address-card"></i>
                 </div>
+                {error && <div className="error">{error}</div>}
                 <button className="btnPassword" type="button" onClick={() => navigate(-1)}>
                     <strong>
                         Return
@@ -38,7 +39,6 @@ const LoginCard = () => {
             ) : (
                 ""
             )}
-            {error && <div className="error">{error}</div>}
         </>
     )
 }

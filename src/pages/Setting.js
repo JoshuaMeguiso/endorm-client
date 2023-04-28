@@ -53,7 +53,7 @@ const Setting = () => {
                     />
                     <label>
                         <h2>
-                            Change Password: 
+                            New Password: 
                         </h2>
                     </label>
                     <input 
@@ -71,6 +71,7 @@ const Setting = () => {
                         onChange={(e) => setPassword2(e.target.value)} 
                         value={password2} 
                     />
+                    {error && <div className="error">{error}</div>}
                     <button className="smallBtn" disabled={isLoading}>
                         <strong>
                             Confirm
@@ -81,7 +82,6 @@ const Setting = () => {
                             Cancel
                         </strong>
                     </button>
-                    {error && <div className="error">{error}</div>}
                 </form>
             </div> 
         </div>

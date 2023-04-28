@@ -28,8 +28,9 @@ const RegisterCard = () => {
                     </p>
                 </h2>
                 <div className="logoHome">
-                    <i className="fa-regular fa-address-card"></i>
+                    <i className="fa-regular fa-address-card fa-lg"></i>
                 </div>
+                {error && <div className="error">{error}</div>}
                 <button className="btnPassword" type="button" onClick={() => navigate(-1)}>
                     <strong>
                         Cancel
@@ -43,7 +44,6 @@ const RegisterCard = () => {
             ) : (
                 ""
             )}
-            {error && <div className="error">{error}</div>}
         </>
     )
 }

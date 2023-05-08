@@ -7,7 +7,7 @@ const Print = () => {
     const { transactions } = useTransactionsContext()
     const [seconds, setSeconds] = useState(6);
     const navigate = useNavigate();
-    const end_Month = add(new Date(transactions[0].start_Month), {months: 1})
+    const end_Month = add(new Date(transactions.start_Month), {months: 1})
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -25,7 +25,7 @@ const Print = () => {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ 
-                        command_string: `1|${transactions[0].tenant_Name}|${transactions[0].room_ID}|${format(new Date(transactions[0].start_Month), 'MMMM dd, Y')} - ${format(end_Month, 'MMMM dd, Y')}|${parseFloat(transactions[0].room_Rate).toFixed(2)}|${parseFloat(transactions[0].water_Charge).toFixed(2).toString()}|${transactions[0].previous_Reading}|${transactions[0].present_Reading}|${transactions[0].total_Consume}|${parseFloat(transactions[0].room_Consume).toFixed(2)}|${parseFloat(transactions[0].individual_Consume).toFixed(2)}|${parseFloat(transactions[0].total_Amount).toFixed(2)}\x0D` 
+                        command_string: `1|${transactions.tenant_Name}|${transactions.room_ID}|${format(new Date(transactions.start_Month), 'MMMM dd, Y')} - ${format(end_Month, 'MMMM dd, Y')}|${parseFloat(transactions.room_Rate).toFixed(2)}|${parseFloat(transactions.water_Charge).toFixed(2).toString()}|${transactions.previous_Reading}|${transactions.present_Reading}|${transactions.total_Consume}|${parseFloat(transactions.room_Consume).toFixed(2)}|${parseFloat(transactions.individual_Consume).toFixed(2)}|${parseFloat(transactions.total_Amount).toFixed(2)}\x0D` 
                     }), 
                 });
                 const data = await response.json();

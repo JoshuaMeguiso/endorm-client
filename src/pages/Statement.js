@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { add, format } from 'date-fns'
 
-//import StatementDetails from '../components/statementDetails'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useTransactionsContext } from  '../hooks/useTransactionsContext'
 
@@ -33,7 +32,13 @@ const Statement = () => {
                 <div className="spinner"></div>
                 </div>
             ) : (
-                ""
+                <>
+                    {!transactions && (
+                        <div className='tenant-details'>
+                            <p><strong>No Statement of Account</strong></p>
+                        </div>
+                    )}
+                </>
             )}
             {transactions && (
                 <>
@@ -124,16 +129,6 @@ const Statement = () => {
                     </button>
                 </>
             )}
-            {transactions && (
-                <>
-                    {!transactions && (
-                        <div className='tenant-details'>
-                            <p><strong>No Statement of Account</strong></p>
-                        </div>
-                    )}
-                </>
-            )}
-
         </>
     )
 } 

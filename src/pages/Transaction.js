@@ -30,7 +30,17 @@ const Transaction = () => {
                 <div className="spinner"></div>
                 </div>
             ) : (
-                ""
+                <>
+                    {history && (
+                        <>
+                            {!history[0] && (
+                                <div className='tenant-details'>
+                                    <p><strong>No History of Transaction</strong></p>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </>
             )}
             {history && history.map((payment)=> (
                 <div key={payment._id}>
@@ -40,15 +50,6 @@ const Transaction = () => {
                     />
                 </div>
             ))}
-            {history && (
-                <div>
-                    {!history[0] && (
-                        <div className='tenant-details'>
-                            <p><strong>No History of Transaction</strong></p>
-                        </div>
-                    )}
-                </div>
-            )}
         </>
     )
 } 

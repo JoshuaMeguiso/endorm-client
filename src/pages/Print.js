@@ -5,7 +5,7 @@ import { add, format } from 'date-fns'
 
 const Print = () => {
     const { transactions } = useTransactionsContext()
-    const [seconds, setSeconds] = useState(4);
+    const [seconds, setSeconds] = useState(6);
     const navigate = useNavigate();
     const end_Month = add(new Date(transactions.start_Month), {months: 1})
 
